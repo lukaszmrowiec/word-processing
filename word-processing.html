@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        #box {
+            position: absolute;
+            margin-left: 2%;
+            width: 95%;
+            height: 100%;
+        }
+        #text {
+            position: relative;
+            width: 45%;
+            height: 50%;
+            padding: 1%;
+
+        }
+        #formattedText {
+            position: absolute;
+            width: 45%;
+            height: 50%;
+            right: 5px;
+            padding: 1%;
+            background-color: beige;
+            border: 1px solid black;
+            float: right;
+        }
+        #check {
+            position: absolute;
+            top: 65%;
+            margin-left: 2%;
+            height: 7%;
+            width: 12%;
+        }
+        #signToAdd {
+            position: absolute;
+            top: 60%;
+            margin-left: 2%;
+            height: 3%;
+            width: 20%;
+        }
+        #signToEnter {
+            position: absolute;
+            top: 56%;
+            margin-left: 2%;
+            height: 3%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <textarea id="text"></textarea>
+        <span id="formattedText"></span>
+    </div>
+    <span id="signToEnter">Wprowadzany znak do tekstu to przełamanie wiersza br</span>
+    <input type="text" id="signToAdd" placeholder="Wprowadź nowy znak">
+    <button id="check">Wprowadź znak</button>
+    
+    <script>
+        const spojniki = ['a', 'i', 'oraz', 'tudzież', 'albo', 'bądź', 'czy', 'lub', 'ani', 'ni', 'aczkolwiek', 'ale', 'jednak', 'lecz', 'natomiast', 'zaś', 'czyli', 'mianowicie', 'dlatego', 'przeto', 'tedy', 'więc', 'zatem', 'aby', 'bo', 'choć', 'jeżeli', 'ponieważ', 'że'];
+        let val = document.getElementById('text');
+        let button = document.getElementById('check');
+        button.addEventListener('click', checkTekst);
+
+        function checkTekst() {
+            let formText = document.getElementById('formattedText');
+            let text = val.value;
+            let wordsArray = text.split(/\s/);
+            let sign;
+            let sign2 = document.getElementById('signToAdd');
+
+            if (sign2.value) {
+                sign = sign2.value;
+            } else {
+                sign = '<br />';
+            }
+            for (let i = 0; i < spojniki.length; i += 1) {
+                for (let u = 0; u < wordsArray.length; u += 1) {
+                    if (wordsArray[u] === spojniki[i]) {
+                        wordsArray.splice(u - 1, 1, sign);
+                    }
+                }
+            }
+            formText.innerHTML = wordsArray.join(' ');
+        }
+    </script>
+</body>
+
+</html>
